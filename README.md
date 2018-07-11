@@ -4,7 +4,7 @@
 Fork and clone repo
 
 ```
-git clone
+git clone git@github.com:andynguyen11/cryptodashboard.git
 ```
 
 Install dependencies
