@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import socketIOClient from 'socket.io-client';
-import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
@@ -59,7 +59,7 @@ class Container extends Component {
         {coins ? '' : <LinearProgress /> }
         <CardHeader
           title="Cryptocurrency Dastboard"
-          subheader="Realtime price updates of Bitcoin, Etheruem, and Litecoin.  Please request more coins in the request form below."
+          subheader="Realtime price updates of Bitcoin, Etheruem, and Litecoin."
         />
       </Card>
         {coins
@@ -75,6 +75,9 @@ class Container extends Component {
                   <Card className={animation} key={index}>
                     <MuiThemeProvider theme={theme}>
                     <CardHeader
+                      avatar={
+                        <Avatar src={coin.logo} />
+                      }
                       title={coin.name}
                       subheader={coin.symbol}
                       action={coin.price}

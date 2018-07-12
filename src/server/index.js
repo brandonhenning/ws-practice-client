@@ -11,18 +11,18 @@ const CoinFixture = {
   'BTCUSDT': {
     'name': 'Bitcoin',
     'symbol': 'BTC',
-    'logo': ''
+    'logo': 'https://i.imgur.com/WkVtAYU.png'
 
   },
   'ETHUSDT': {
     'name': 'Ethereum',
     'symbol': 'ETH',
-    'logo': ''
+    'logo': 'https://i.imgur.com/jYKsrap.png'
   },
   'LTCUSDT': {
     'name': 'Litecoin',
     'symbol': 'LTC',
-    'logo': ''
+    'logo': 'https://i.imgur.com/dDNZeXI.png'
   }
 }
 
