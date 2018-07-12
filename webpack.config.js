@@ -2,10 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app/index.js',
+  entry: ['babel-polyfill', './src/app/index.js'],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
+  },
+  devServer: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/api': 'http://localhost:5000'
+    }
   },
   module: {
     rules: [

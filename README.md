@@ -12,3 +12,8 @@ Install dependencies
 ```
 npm install
 ```
+
+Run Locally
+```
+npm run dev
+```

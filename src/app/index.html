@@ -2,9 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Cryptocurrency Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+  <style>
+    body {
+      background: #e5e5e5
+    }
+
+    #app {
+      margin: auto;
+      max-width: 800px;
+      margin-top: 40px;
+    }
+
+    .flashgreen {
+      -moz-animation: flashgreen .8s ease-out;
+      -moz-animation-iteration-count: 1;
+      -webkit-animation: flashgreen .8s ease-out;
+      -webkit-animation-iteration-count: 1;
+      -ms-animation: flashgreen .8s ease-out;
+      -ms-animation-iteration-count: 1;
+      animation: flashgreen .8s ease-out;
+      animation-iteration-count: 1;
+    }
+
+    @-webkit-keyframes flashgreen {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #A6FFD5;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    @-moz-keyframes flashgreen {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #A6FFD5;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    @-ms-keyframes flashgreen {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #A6FFD5;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    .flashred {
+      -moz-animation: flashred .8s ease-out;
+      -moz-animation-iteration-count: 1;
+      -webkit-animation: flashred .8s ease-out;
+      -webkit-animation-iteration-count: 1;
+      -ms-animation: flashred .8s ease-out;
+      -ms-animation-iteration-count: 1;
+      animation: flashred .8s ease-out;
+      animation-iteration-count: 1;
+    }
+
+    @-webkit-keyframes flashred {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #FFA6A6;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    @-moz-keyframes flashred {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #FFA6A6;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    @-ms-keyframes flashred {
+      0% {
+        background-color: none;
+      }
+      30% {
+        background-color: #FFA6A6;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
