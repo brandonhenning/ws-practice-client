@@ -2,8 +2,6 @@ import React, { Component } from "react"
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import Typography from '@material-ui/core/Typography'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 
