@@ -1,85 +1,104 @@
-import React, { Component } from "react";
-import socketIOClient from 'socket.io-client';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React, { Component } from "react"
+import Avatar from '@material-ui/core/Avatar'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import Typography from '@material-ui/core/Typography'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 
 class Container extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       response: false,
-      coins: '',
-      previousCoins: '',
-      api: 'http://127.0.0.1:5000' //TODO move to config
-    };
+      bids: '',
+      previousBids: '',
+      asks: '',
+      previousAsks: '',
+      api: 'http://127.0.0.1:4545',
+      flash: 'false' 
+    }
   }
 
   async componentDidMount() {
-    const response = await fetch(this.state.api);
-    const body = await response;
-
-    if (response.status !== 200)
-      throw Error(body.message); //TODO Fail gracefully in the UI
-
-    this.getPrice();
+    this.getPrice()
   }
 
   getPrice() {
-    const socket = socketIOClient(this.state.api);
-    socket.on('getPrices', data => {
-      this.setState({ 'coins': data, 'previousCoins': this.state.coins })
-    });
+    const self = this
+    const ws = new WebSocket('ws://localhost:4545')
+        ws.onopen = function (event) {
+            console.log('websocket is connected ...', event)
+        }
+        ws.onmessage = function (event) {
+            let webhookOrders = JSON.parse(event.data)
+            let asks = webhookOrders.asks
+            let bids = webhookOrders.bids
+            self.setState({ 'asks': asks, 'flash': true, 'bids': bids })
+        }
   }
 
+
   render() {
-    const { coins, previousCoins } = this.state;
+    const { bids, asks, flash } = this.state
 
     const theme = createMuiTheme({
       overrides: {
         MuiCardHeader: {
           action: {
-            fontFamily: 'Roboto", "Helvetica", "Arial", sans-serif',
-            fontSize: "2rem",
+            fontFamily: 'Roboto", "Roboto", "Roboto", "Roboto',
+            fontSize: "1.5rem",
             fontWeight: 400,
             marginTop: 0,
-            marginRight: 0
+            marginRight: 0,
+            paddingRight: 50
           }
         }
       }
-    });
+    })
+
+    const orderBookStyle = {
+      display: 'flex'
+    }
+    const bidsStyle = {
+      flex: '0 0 50%'
+    }
+    const asksStyle = {
+      flex: '0 0 50%'
+    }
 
     return (
-      <div>
-      <Card>
-        {coins ? '' : <LinearProgress /> }
-        <CardHeader
-          title="Cryptocurrency Dastboard"
-          subheader="Realtime price updates of Bitcoin, Etheruem, and Litecoin."
-        />
-      </Card>
-        {coins
+    <div id='orderbooks' style={orderBookStyle}>
+      <div id='bids' style={bidsStyle}>
+          <Card>
+              <CardHeader
+                  title="BIDS"
+                />
+          </Card>
+        {bids
           ?
-              coins.map(function(coin, index) {
-                let animation = '';
-                if (previousCoins) {
-                  animation = coin.price > previousCoins[index].price ? 'flashgreen' : 'flashred';
+              bids.map(function(coin, index) {
+                if (coin.exchanges == 'poloniex') {
+                  coin.logo = 'https://www.5nej.cz/wp-content/uploads/2017/07/poloniex.png'
+                } else if (coin.exchanges == 'bittrex') {
+                  coin.logo = 'https://queenwiki.com/wp-content/uploads/2017/11/Bittrex.png'
+                }
+                let animation = ''
+                if (flash) {
+                  animation = 'flashgreen'
                 } else {
-                  animation = 'flashgreen';
+                  animation = 'flashgreen'
                 }
                 return (
                   <Card className={animation} key={index}>
                     <MuiThemeProvider theme={theme}>
-                    <CardHeader
+                    <CardHeader className={animation}
                       avatar={
                         <Avatar src={coin.logo} />
                       }
-                      title={coin.name}
-                      subheader={coin.symbol}
+                      title={coin.exchanges}
+                      subheader={coin.quantity}
                       action={coin.price}
                     />
                     </MuiThemeProvider>
@@ -90,13 +109,58 @@ class Container extends Component {
             <Card>
                 <CardHeader
                   title="Loading..."
-                  subheader="Reticulating splines"
+                  subheader="Connecting to Websocket"
                 />
             </Card>
             }
       </div>
-    );
+      <div id='asks' style={asksStyle}>
+        <Card>
+              <CardHeader
+                  title="ASKS"
+              />
+        </Card>
+       {asks
+          ?
+              asks.map(function(coin, index) {
+                if (coin.exchanges == 'poloniex') {
+                  coin.logo = 'https://www.5nej.cz/wp-content/uploads/2017/07/poloniex.png'
+                } else if (coin.exchanges == 'bittrex') {
+                  coin.logo = 'https://queenwiki.com/wp-content/uploads/2017/11/Bittrex.png'
+                }
+                let animation = ''
+                if (flash) {
+                  animation = 'flashred' 
+                } else {
+                  animation = 'flashred'
+                }
+                return (
+                  <Card className={animation} key={index}>
+                    <MuiThemeProvider theme={theme}>
+                    <CardHeader
+                      avatar={
+                        <Avatar src={coin.logo} />
+                      }
+                      title={coin.exchanges}
+                      subheader={coin.quantity}
+                      action={coin.price}
+                    />
+                    </MuiThemeProvider>
+                  </Card>
+              )
+              })
+          :
+            <Card>
+                <CardHeader
+                  title="Loading..."
+                  subheader="Connecting to Websocket"
+                />
+            </Card>
+        }
+      </div>
+    </div>
+    )
   }
 }
 
-export default Container;
+export default Container
