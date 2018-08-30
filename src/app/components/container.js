@@ -14,7 +14,6 @@ class Container extends Component {
       previousBids: '',
       asks: '',
       previousAsks: '',
-      api: 'https://ws-practice-bph.herokuapp.com:80/',
       flash: 'false' 
     }
   }
@@ -24,9 +23,8 @@ class Container extends Component {
   }
 
   getPrice() {
-    console.log('is anything working?')
     const self = this
-    const ws = new WebSocket('ws://ws-practice-bph.herokuapp.com:80')
+    const ws = new WebSocket(process.env.PORT)
         ws.onopen = function (event) {
             console.log('websocket is connected ...', event)
         }
