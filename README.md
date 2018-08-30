@@ -7,4 +7,5 @@ This is the front end for practicing websockets using the websocket apis for dif
 
 #### Installation Instructions
 - npm install 
+- set Websocket configs in cointainer.js to point to server websocket port
 - npm start 
