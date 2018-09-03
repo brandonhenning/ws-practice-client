@@ -80,6 +80,8 @@ class Container extends Component {
                   coin.logo = 'https://www.5nej.cz/wp-content/uploads/2017/07/poloniex.png'
                 } else if (coin.exchanges == 'bittrex') {
                   coin.logo = 'https://queenwiki.com/wp-content/uploads/2017/11/Bittrex.png'
+                } else if (coin.exchanges == 'binance') {
+                  coin.logo = 'https://seeklogo.com/images/B/binance-coin-bnb-logo-97F9D55608-seeklogo.com.png'
                 }
                 let animation = ''
                 if (flash) {
@@ -124,6 +126,8 @@ class Container extends Component {
                   coin.logo = 'https://www.5nej.cz/wp-content/uploads/2017/07/poloniex.png'
                 } else if (coin.exchanges == 'bittrex') {
                   coin.logo = 'https://queenwiki.com/wp-content/uploads/2017/11/Bittrex.png'
+                } else if (coin.exchanges == 'binance') {
+                  coin.logo = 'https://seeklogo.com/images/B/binance-coin-bnb-logo-97F9D55608-seeklogo.com.png'
                 }
                 let animation = ''
                 if (flash) {
